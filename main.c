@@ -30,6 +30,7 @@ typedef struct
 //#define GPIO_B_Blue ( (GPIO_t*) GPIO_B_BASE_ADDR)
 #define GPIO_E ( (GPIO_t*) GPIO_E_BASE_ADDR)
 
+void outs();
 void leds_off();
 void led_red();
 void led_blue();
@@ -43,10 +44,8 @@ int main(void) {
 	PCR_PTB22 = 0x00000100; // Posicion 8, corresponde al MUX, configuracion del pin
 	PCR_PTB21 = 0x00000100; // Posicion 8, corresponde al MUX, configuracion del pin
 	PCR_PTE26 = 0x00000100; // Posicion 8, corresponde al MUX, configuracion del pin
-
-	GPIO_B->PDDR =  0x00600000; // Posicion 21 y 22, para configurarlos como salida
-	GPIO_E->PDDR = 0x04000000; // Posicion 26, para configurarlo como salida
-	leds_off();
+	
+	outs();
 
     while(1) {
 
@@ -56,6 +55,12 @@ int main(void) {
     	led_white();
     }
     return 0 ;
+}
+
+void outs(){
+	GPIO_B->PDDR =  0x00600000; // Posicion 21 y 22, para configurarlos como salida
+	GPIO_E->PDDR = 0x04000000; // Posicion 26, para configurarlo como salida
+	leds_off();
 }
 
 void leds_off(){
